@@ -1,8 +1,8 @@
 import { Server, Socket } from "socket.io";
 
 // Types
-import { Room, RoomId, DefaultRoomId } from "./@types/Room";
-import * as Member from "./@types/Member";
+import { Room, RoomId, DefaultRoomId } from "../@types/Room";
+import * as Member from "../@types/Member";
 
 ////////////////////////////////////////////////////////////
 
