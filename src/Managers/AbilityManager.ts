@@ -32,6 +32,17 @@ class AbilityManager {
     this.hasBeenInit = true;
     console.log(`Monster Manager initialised, ${this.abilities.length} abilities.`);
   }
+  
+  /**
+   * Get an ability using his id
+   * @param id Id of the ability
+   * @returns a copy of the ability if the id match one, undefined otherwise 
+   */
+  getAbility(id: number): Ability | undefined {
+    const ability = this.abilities.find(ability => ability.id == id);
+
+    return ability ? ability.clone() : undefined;
+  }
 }
 
 export default AbilityManager;

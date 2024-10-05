@@ -15,7 +15,7 @@ class MonsterManager {
 
   async init(abilityManager: AbilityManager) {
     this.abilityManager = abilityManager;
-    this.abilityManager.init();
+    await this.abilityManager.init();
     const monstersData: MonsterDataFromDB[] = await fetchFromDB("monsters");
     if (!monstersData) {
       console.error("Error: fetching the data for the monsters from the DB failed.");
@@ -24,7 +24,7 @@ class MonsterManager {
     monstersData.forEach(monsterData => {
       let monsterAbilities: Ability[] = [];
       monsterData.abilities.forEach(abilityId => {
-        let realAbility = this.abilityManager.abilities.find(ability => ability.id === abilityId);
+        let realAbility = this.abilityManager.getAbility(abilityId);
         if (realAbility)
           monsterAbilities.push(realAbility);
         else
@@ -55,6 +55,17 @@ class MonsterManager {
       }));
     });
     console.log(`Monster Manager initialised, ${this.monsters.length} monsters.`);
+  }
+
+  /**
+   * Get a monster using his id
+   * @param id Id of the monster
+   * @returns a copy of the monster if the id match one, undefined otherwise 
+   */
+  getMonster(id: number): Monster | undefined {
+    const monster = this.monsters.find(monster => monster.id == id);
+
+    return monster ? monster.clone() : undefined;
   }
 }
 
